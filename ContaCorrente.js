@@ -6,7 +6,9 @@ export class ContaCorrente {
 
     _saldo = 0;
 
-     get saldo() {
+    //Metodos Assessores
+
+    get saldo() {
          return this._saldo;
      }  
 
@@ -21,6 +23,15 @@ export class ContaCorrente {
     get cliente() {
         return this._cliente;
     }
+
+    constructor(cliente, agencia) {
+        this.cliente = cliente;
+        this.agencia = agencia;
+    }
+
+
+
+   //atributos 
 
     sacar(valor){
         if(this._saldo >= valor){
