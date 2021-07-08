@@ -1,59 +1,15 @@
-import { Cliente } from "./Cliente.js";
+import { Conta } from "./Conta.js";
 
-export class ContaCorrente {
+export class ContaCorrente extends Conta {
     static numeroDeContas = 0;
-    agencia;
-    _cliente;
-
-    _saldo = 0;
-
-    //Metodos Assessores
-
-    get saldo() {
-         return this._saldo;
-     }  
-
-
-    set cliente(novoValor) {
-        if (novoValor instanceof Cliente) {
-            this._cliente = novoValor;
-        }
-
+    constructor(cliente, agencia) {
+        super(0, cliente, agencia);
+        ContaCorrente.numeroDeContas += 1;
     }
-
-    get cliente() {
-        return this._cliente;
-    }
-
-    constructor(agencia, cliente ) {
-        this.cliente = cliente;
-        this.agencia = agencia;
-        ContaCorrente.numeroDeContas += 1
-    }
-
-
-
-   //atributos 
-
-    sacar(valor){
-        if(this._saldo >= valor){
-            this._saldo -= valor;
-            return valor;
-        }
-    }
-
-    depositar(valor){
-        if(valor <= 0)
-        {
-            return;
-        } 
-        this._saldo += valor;           
-    }
-
-    tranferir(valor, conta){
-        
-        const valorSacado = this.sacar(valor);
-        conta.depositar(valorSacado);
-        
+ 
+    //sobreescribiendo o comportamento de sacar
+    sacar(valor) {
+        let taxa = 1.1;
+        return this._sacar(valor, taxa);
     }
 }
